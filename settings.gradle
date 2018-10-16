@@ -1,0 +1,6 @@
+rootProject.name = 'clean-architecture-poc'
+
+include "app"
+include "domain"
+include "data"
+include "core"
