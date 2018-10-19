@@ -41,12 +41,22 @@ repositories {
     mavenCentral()
 }
 
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
 
 dependencies {
+    compile project(':domain')
+    
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    runtimeOnly('com.h2database:h2')
+    // runtimeOnly('com.h2database:h2')
     runtimeOnly('mysql:mysql-connector-java')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
