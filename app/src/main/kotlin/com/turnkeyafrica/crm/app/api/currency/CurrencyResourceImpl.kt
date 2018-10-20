@@ -4,10 +4,7 @@ import com.turnkeyafrica.crm.domain.UseCaseExecutor
 import com.turnkeyafrica.crm.domain.currency.CreateCurrencyUseCase
 import com.turnkeyafrica.crm.domain.currency.GetCurrenciesUseCase
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.concurrent.CompletionStage
 
 @RestController
@@ -27,7 +24,7 @@ class CurrencyResourceImpl(
 
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_UTF8_VALUE])
-    override fun saveCurrency(currencyDto: CurrencyDto): CompletionStage<CurrencyDto> = useCaseExecutor(
+    override fun saveCurrency(@RequestBody currencyDto: CurrencyDto): CompletionStage<CurrencyDto> = useCaseExecutor(
             useCase = createCurrencyUseCase,
             requestDto = currencyDto,
             requestConverter = { it.toCurrency() },
