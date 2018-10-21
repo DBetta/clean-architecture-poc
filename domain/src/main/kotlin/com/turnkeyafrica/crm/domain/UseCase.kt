@@ -1,33 +1,30 @@
 package com.turnkeyafrica.crm.domain
 
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.CompletionStage
-
 interface UseCase<in Request, out Response> {
-    fun execute(request: Request): Response
+    suspend fun execute(request: Request): Response
 }
 
 interface UseCaseExecutor {
-    operator fun <RequestDto, ResponseDto, Request, Response> invoke(
+    suspend operator fun <RequestDto, ResponseDto, Request, Response> invoke(
             useCase: UseCase<Request, Response>,
             requestDto: RequestDto,
-            requestConverter: (RequestDto) -> Request,
-            responseConverter: (Response) -> ResponseDto
-    ): CompletionStage<ResponseDto>
+            requestConverter: suspend (RequestDto) -> Request,
+            responseConverter: suspend (Response) -> ResponseDto
+    ): ResponseDto
 
-    operator fun <RequestDto, Request> invoke(
+    suspend operator fun <RequestDto, Request> invoke(
             useCase: UseCase<Request, Unit>,
             requestDto: RequestDto,
-            requestConverter: (RequestDto) -> Request
+            requestConverter: suspend (RequestDto) -> Request
     ) =
             invoke(useCase, requestDto, requestConverter, {})
 
-    operator fun invoke(useCase: UseCase<Unit, Unit>) =
+    suspend operator fun invoke(useCase: UseCase<Unit, Unit>) =
             invoke(useCase, Unit) { }
 
-    operator fun <ResponseDto, Response> invoke(
+    suspend operator fun <ResponseDto, Response> invoke(
             useCase: UseCase<Unit, Response>,
-            responseConverter: (Response) -> ResponseDto
+            responseConverter: suspend (Response) -> ResponseDto
     ) =
             invoke(useCase, Unit, { }, responseConverter)
 }
@@ -35,14 +32,21 @@ interface UseCaseExecutor {
 
 class UseCaseExecutorImp : UseCaseExecutor {
 
-    override operator fun <RequestDto, ResponseDto, Request, Response> invoke(
+    override suspend operator fun <RequestDto, ResponseDto, Request, Response> invoke(
             useCase: UseCase<Request, Response>,
             requestDto: RequestDto,
-            requestConverter: (RequestDto) -> Request,
-            responseConverter: (Response) -> ResponseDto
-    ): CompletionStage<ResponseDto> =
-            CompletableFuture
+            requestConverter: suspend (RequestDto) -> Request,
+            responseConverter: suspend (Response) -> ResponseDto
+    ): ResponseDto  {
+        val request = requestConverter(requestDto)
+        val response = useCase.execute(request)
+        return responseConverter(response)
+    }
+
+
+
+            /*CompletableFuture
                     .supplyAsync { requestConverter(requestDto) }
                     .thenApplyAsync { useCase.execute(it) }
-                    .thenApplyAsync { responseConverter(it) }
+                    .thenApplyAsync { responseConverter(it) }*/
 }
