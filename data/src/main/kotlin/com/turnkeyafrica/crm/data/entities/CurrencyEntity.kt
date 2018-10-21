@@ -9,17 +9,12 @@ import javax.persistence.*
 @Table(name = "tqc_currencies")
 data class CurrencyEntity(
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "cur_code")
-        val code: Long?,
+        val code: String,
         @Column(name = "cur_symbol")
         val symbol: String,
-        @Column(name = "cur_desc")
-        val desc: String,
-        @Column(name = "cur_rnd")
-        val round: BigDecimal,
-        @Column(name = "cur_exchange_rate")
-        val exchangeRate: BigDecimal,
+        @Column(name = "cur_name")
+        val name: String,
         @Column(name = "cur_updated_at")
         val createdAt: LocalDateTime,
         @Column(name = "cur_created_at")
@@ -29,9 +24,7 @@ data class CurrencyEntity(
 fun CurrencyEntity.toCurrency() = Currency(
         code = code,
         symbol = symbol,
-        desc = desc,
-        round = round,
-        exchangeRate = exchangeRate,
+        name = name,
         createdAt = createdAt,
         updatedAt = updatedAt
 )
@@ -39,9 +32,7 @@ fun CurrencyEntity.toCurrency() = Currency(
 fun Currency.toCurrencyEntity() = CurrencyEntity (
         code = code,
         symbol = symbol,
-        desc = desc,
-        round = round,
-        exchangeRate = exchangeRate,
+        name = name,
         createdAt = createdAt,
         updatedAt = updatedAt
 )

@@ -20,6 +20,7 @@ class CurrencyResourceImpl(
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     override fun getCurrencies(): CompletionStage<List<CurrencyDto>> {
+
         return GlobalScope.future {
             useCaseExecutor(
                     useCase = getCurrenciesUseCase,

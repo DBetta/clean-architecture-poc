@@ -37,7 +37,7 @@ Clean architecture gives us all these benefits:
 * **Good monolith** with clear use cases that you can split in microservices later one, once you've learnt more about them
 
 Of course, it comes at a cost:
-* **Perceived duplication of code**. Entities might be represented differently when used in business logic, when dealing with the database and when presenting them in a json format. You might feel like you're duplicating code, but you're actually favouring _decoupling over DRY_
+* **Perceived duplication of cur_code**. Entities might be represented differently when used in business logic, when dealing with the database and when presenting them in a json format. You might feel like you're duplicating cur_code, but you're actually favouring _decoupling over DRY_
 * **You need interesting business logic** to "justify" the structure. If all you do in your use case is a one-line method to read or save from a database, then maybe you can get away with something simpler
 
 ***

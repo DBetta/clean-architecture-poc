@@ -4,11 +4,9 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 data class Currency(
-        val code: Long?,
+        val code: String,
         val symbol: String,
-        val desc: String,
-        val round: BigDecimal,
-        val exchangeRate: BigDecimal,
+        val name: String,
         val createdAt: LocalDateTime,
         val updatedAt: LocalDateTime
 )
