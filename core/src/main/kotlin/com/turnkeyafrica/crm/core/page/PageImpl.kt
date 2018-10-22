@@ -32,7 +32,7 @@ class PageImpl<T>(private val _content: List<T>,
      * @see Page.getTotalPages()
      */
     override fun getTotalPages(): Int {
-        return if (getSize() == 0) 0
+        return if (getSize() == 0) 1
         else Math.ceil(_total.toDouble() / getSize().toDouble()).toInt()
     }
 

@@ -24,7 +24,7 @@ abstract class Chunk< T>(
     /**
      * @see Slice.getNumberOfElements()
      */
-    override fun getNumberOfElements(): Int = getContent().size
+    override fun getNumberOfElements(): Int = _content.size
 
     /**
      * @see Slice.hasPrevious()
@@ -68,7 +68,7 @@ abstract class Chunk< T>(
     /**
      * @see Iterable.iterator()
      */
-    override fun iterator(): Iterator<T> = getContent().iterator()
+    override fun iterator(): Iterator<T> = getContent().listIterator()
 
 
     /**
@@ -78,7 +78,7 @@ abstract class Chunk< T>(
      * @return
      */
     protected fun <U> getConvertedContent(converter: (T) -> U): List<U>{
-        return this.map(converter).toList()
+        return this.getContent().map{converter.invoke(it)}.toList()
     }
 
     /**
