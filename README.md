@@ -1,8 +1,8 @@
 # CLean Architecture POC #
 
-This is an example initial design for CRM using the clean architecture using kotlin.
+An example of clean architecture.
 
-It has been created to show kotlin usage in real project and the advantages of decoupling from frameworks in the business rules.
+It has been created to show kotlin usage in real project and the advantages of decoupling from frameworks in the business rules. But also can be easily be integrated to Java if need be.
 
 **Table of Contents**
 * [Why Clean Architecture?](#why-clean-architecture)
@@ -37,7 +37,67 @@ Clean architecture gives us all these benefits:
 * **Good monolith** with clear use cases that you can split in microservices later one, once you've learnt more about them
 
 Of course, it comes at a cost:
-* **Perceived duplication of code**. Entities might be represented differently when used in business logic, when dealing with the database and when presenting them in a json format. You might feel like you're duplicating code, but you're actually favouring _decoupling over DRY_
+* **Perceived duplication of code**. Entities might be represented differently when used in business logic, when dealing with the database and when presenting them in a json format. You might feel like you're duplicating cur_code, but you're actually favouring _decoupling over DRY_
 * **You need interesting business logic** to "justify" the structure. If all you do in your use case is a one-line method to read or save from a database, then maybe you can get away with something simpler
 
 ***
+
+## Why Kotlin
+
+* **Java Interoperability** All your favourite java frameworks are available. And for any library written in kotlin can be used in java.
+* **Named & default Arguments** This eliminates the need for builders.
+```kotlin
+fun build(title: String, width: Int = 800, height: Int = 600) {
+    Frame(title, width, height)
+}
+
+
+build("PacMan", 400, 300)                           // equivalent
+build(title = "PacMan", width = 400, height = 300)  // equivalent
+build(width = 400, height = 300, title = "PacMan")  // equivalent
+```
+* **Data classes** It’s a POJO complete with toString(), equals(), hashCode(), and copy(), and unlike in Java it won’t take up 100 lines of code
+```kotlin
+data class Person(val name: String,
+                  var email: String,
+                  var age: Int)
+
+val john = Person("John", "john@gmail.com", 112)
+```
+* **Operator Overloading** Improve readability using a set of operators available to be overloaded.
+```kotlin
+operator fun BigDecimal.div(other: BigDecimal): BigDecimal = this.divide(other, 10, BigDecimal.ROUND_HALF_EVEN)
+operator fun BigDecimal.plus(other: BigDecimal) = this.add(other)
+
+val one = 1.toBigDecimal()
+val two = 2.toBigDecimal()
+val three = 3.2.toBigDecimal()
+
+println(one + two / three)
+```
+* **Extension Functions** Remember the first time you had to sort a ```List``` in Java? You couldn’t find a ```sort()```  function so you had to google to learn of ```Collections.sort()```. And later when you had to capitalize a String, you either end up writing your own helper function because you didn’t know of ```StringUtils.capitalize()```. Kotlin enables you to add new functions to old classes and with help of intellisence from ide.
+```kotlin
+fun String.replaceSpaces(): String {
+    return this.replace(' ', '_')
+}
+
+val formatted = str.replaceSpaces()
+``` 
+ 
+ 
+ ## Application structure
+ ![Alt text](art/project_structure.PNG?raw=true)
+ 
+ ![Alt text](art/clean_architecture_clean_way_02.png)
+ 
+ ![Alt text](art/clean_architecture_clean_way_03.png)
+ 
+ ![Alt text](art/clean_architecture_clean_way_04.png)
+ 
+ ![Alt text](art/clean_architecture_clean_way_05.png)
+
+
+## Build and Running the Application
+```
+./gradlew build && java -jar app/build/libs/app-0.0.1-SNAPSHOT.jar
+```

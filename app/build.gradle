@@ -1,10 +1,11 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.71'
+        kotlinVersion = '1.3.0-rc-190'
         springBootVersion = '2.0.5.RELEASE'
     }
     repositories {
         mavenCentral()
+        maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -37,20 +38,31 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven { url "https://kotlin.bintray.com/kotlin-eap" }
+    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 
 
 dependencies {
-    compile project(':domain')
-    compile project(':data')
+    implementation project(':domain')
+    implementation project(':data')
 
     implementation('org.springframework.boot:spring-boot-starter-actuator')
     implementation('org.springframework.boot:spring-boot-starter-webflux')
     implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation "io.springfox:springfox-swagger2:2.9.2"
+    implementation "io.springfox:springfox-swagger2:3.0.0-SNAPSHOT"
+    implementation "io.springfox:springfox-spring-webflux:3.0.0-SNAPSHOT"
+    implementation "io.springfox:springfox-swagger-ui:3.0.0-SNAPSHOT"
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('io.projectreactor:reactor-test')
+
+
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0-RC1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.0.0-RC1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.0.0-RC1'
 }

@@ -5,11 +5,9 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 data class CurrencyDto (
-        val code: Long?,
+        val code: String,
         val symbol: String,
-        val desc: String,
-        val round: BigDecimal,
-        val exchangeRate: BigDecimal,
+        val name: String,
         val createdAt: LocalDateTime,
         val updatedAt: LocalDateTime
 )
@@ -17,9 +15,7 @@ data class CurrencyDto (
 fun CurrencyDto.toCurrency() = Currency (
         code = code,
         symbol = symbol,
-        desc = desc,
-        round = round,
-        exchangeRate = exchangeRate,
+        name = name,
         createdAt = createdAt,
         updatedAt = updatedAt
 )
@@ -27,9 +23,7 @@ fun CurrencyDto.toCurrency() = Currency (
 fun Currency.toCurrencyDto() = CurrencyDto (
         code = code,
         symbol = symbol,
-        desc = desc,
-        round = round,
-        exchangeRate = exchangeRate,
+        name = name,
         createdAt = createdAt,
         updatedAt = updatedAt
 )
