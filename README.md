@@ -99,5 +99,5 @@ val formatted = str.replaceSpaces()
 
 ## Build and Running the Application
 ```
-./gradlew build && java -jar app/build/libs/
+./gradlew build && java -jar app/build/libs/app-0.0.1-SNAPSHOT.jar
 ```
