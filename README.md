@@ -1,8 +1,8 @@
 # CLean Architecture POC #
 
-This is an example initial design for CRM using the clean architecture using kotlin.
+An example of clean architecture.
 
-It has been created to show kotlin usage in real project and the advantages of decoupling from frameworks in the business rules.
+It has been created to show kotlin usage in real project and the advantages of decoupling from frameworks in the business rules. But also can be easily be integrated to Java if need be.
 
 **Table of Contents**
 * [Why Clean Architecture?](#why-clean-architecture)
